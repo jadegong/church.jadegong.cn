@@ -15,6 +15,9 @@ html,body {
     * {
         box-sizing: border-box;
     }
+    a {
+        text-decoration: none;
+    }
     a:hover,
     a:focus {
         outline: none;
