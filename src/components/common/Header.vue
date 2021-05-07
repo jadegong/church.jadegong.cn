@@ -1,6 +1,6 @@
 <!-- Common Header Component -->
-<!-- By Forrest -->
-<!-- At 2021/03/29. -->
+<!-- v0.0.1 2021/03/29 Forrest Create File. -->
+<!-- v0.0.1 2021/05/01 Forrest Add check token request. -->
 <template>
     <div class="common-header">
         <div class="common-header-left">
@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="common-header-right">
-            <div class="common-header-right-item" v-if="currentPageName !== 'default'">
+            <div class="common-header-right-item" v-if="currentPageName === 'forgetPwd'">
                 <a href="/login">&lt;&lt;返回登录</a>
             </div>
             <div class="common-header-right-item" v-if="currentPageName === 'default' && isLogin">
@@ -22,19 +22,24 @@
     </div>
 </template>
 <script>
+import { checkToken } from '../../service/login';
 export default {
     name: 'commonHeader',
     props: ['currentPage'], // 当前页面，forgetPwd,login,default
     data() {
         return {
-            currentPageName: this.currentPage || 'default',
+            currentPageName: 'default',
             account: '',
             isLogin: false,
         };
     },
     mounted() {
+        this.currentPageName = this.currentPage || 'default';
         if (localStorage.getItem('token')) {
-            // TODO: Validate token.
+            // DONE: Validate token.
+            checkToken({}).then(res => {
+                // TODO: If success, set user info and isLogin.
+            });
         }
     },
 }
@@ -44,6 +49,7 @@ export default {
     width: 100%;
     height: 70px;
     padding: 0 40px;
+    box-shadow: 0 1px 1px 0 #eee;
     .common-header-left,
     .common-header-right {
         height: 100%;
@@ -66,8 +72,13 @@ export default {
             }
         }
     }
-    .common-header-left a span {
-        font-size: 1.5rem;
+    .common-header-left {
+        line-height: 70px;
+        a span {
+            text-decoration: none;
+            color: #333333;
+            font-size: 1.5rem;
+        }
     }
     .common-header-right {
         float: right;

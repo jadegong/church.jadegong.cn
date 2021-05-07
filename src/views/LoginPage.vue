@@ -1,6 +1,6 @@
 <template>
     <div class="login-page">
-        <common-header></common-header>
+        <common-header currentPage="login"></common-header>
         <div class="login-page-words-container">
             <h2>JH大数据统计</h2>
             <P>1.xxxxxxxxxxxxxxxx</P>
